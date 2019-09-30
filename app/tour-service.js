@@ -13,6 +13,25 @@ export default function uiTourService($controller, $q) {
         return tours[0];
     };
 
+    /**
+     * Return next active tour from tours array
+     * if current tour status is OFF
+    */
+    service.getNextActiveTour = function () {
+        var toursArrayLength = tours.length, i;
+
+        if (toursArrayLength > 1) {
+            for (i = 0; i < toursArrayLength; i = i + 1) {
+                if (tours[i].getStatus === tours[0].Status.OFF &&
+                    typeof tours[i + 1] &&
+                    tours[i + 1].getStatus === tours[0].Status.ON) {
+                    return tours[i + 1];
+                }
+            }
+        }
+        return false;
+    };
+
     service.hasNextTour = function (name) {
         var tourIndex = tours.indexOf(name);
 
