@@ -13,6 +13,24 @@ export default function uiTourService($controller, $q) {
         return tours[0];
     };
 
+    service.hasNextTour = function (name) {
+        var tourIndex = tours.indexOf(name);
+        if (typeof tours[tourIndex + 1] === 'undefined') {
+            return false;
+        } else {
+            return true;
+        }
+    };
+
+    service.getNextTour = function (name) {
+        if (service.hasNextTour(name)) {
+            var tourIndex = tours.indexOf(name);
+            return tours[tourIndex + 1];
+        } else {
+            return false;
+        }
+    };
+
     /**
      * Look up a specific tour by name
      *
